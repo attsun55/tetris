@@ -1,0 +1,31 @@
+<meta http-equiv ="Content-Type" content ="text/html; charset=utf-8" />
+<style type="text/css">
+table{
+  border-collapse:collapse;
+}
+table td{
+  width:20px;
+  height:20px;
+  border: 1px solid black;
+}
+</style>
+<script type="text/javascript">
+window. onload = function() {
+  var html = ['<table >']
+  for( var y = 0; y < 20; y++) {
+    html.push('<tr>')
+    for( var x = 0; x < 10; x++) html.push('<td ></td>')
+    html.push('</tr>')
+  }
+  html.push('</table>')
+  document.getElementById('view').innerHTML=html.join('')
+
+  var cells = document.getElementsByTagName('td')
+  cells[0].style.backgroundColor='red'
+  cells[1].style.backgroundColor='red'
+  cells[2].style.backgroundColor='red'
+  cells[3].style.backgroundColor='red'
+
+ }
+</script>
+<div id ="view"></div>
