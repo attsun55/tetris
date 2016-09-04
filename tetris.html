@@ -13,6 +13,7 @@ table td{
 window. onload = function() {
   var width=10
   var height = 20
+  var speed = 20
   var html = ['<table >']
   for( var y = 0; y < height; y++) {
     html.push('<tr>')
@@ -40,8 +41,9 @@ window. onload = function() {
         break;
     }
   }
-
+  var tick = 0
   var move = function(){
+    tick++
     left0 = left
     if(keys.left && left > 0){
       left--
@@ -61,12 +63,17 @@ window. onload = function() {
     cells[top * width + left + 2].style.backgroundColor='red'
     cells[top * width + left + 3].style.backgroundColor='red'
     top0 = top
-    top++
+    if(tick % speed == 0){
+      top++
+    }
+    var info = tick + ' (' + left + ', ' + top + ')'
+    document.getElementById('info').innerHTML = info
     if(top < height) {
-      setTimeout(move, 1000)
+      setTimeout(move, 1000 / speed)
     }
   }
   move()
 }
 </script>
+<div id="info"></div>
 <div id ="view"></div>
