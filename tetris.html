@@ -26,10 +26,14 @@ window. onload = function() {
   document.getElementById('view').innerHTML=html.join('')
 
   var cells = document.getElementsByTagName('td')
-  var top = 0
-  var top0 = 0
-  var left = 0
-  var left0 = 0
+  var top = 2
+  var top0 = top
+  var left = Math.floor(width / 2)
+  var left0 = left
+  var w = width
+  var angles = [[-1, 1, 2], [-w, w, w + w], [-2, -1, 1], [-w - w, -w, w]]
+  var angle = 0
+  var parts0 = []
   var keys = {}
   document.onkeydown = function(e){
     switch ( (e || event).keyCode ) {
@@ -38,6 +42,9 @@ window. onload = function() {
         break;
       case 39:
         keys.right = true;
+        break;
+      case 32:
+        keys.rotate = true;
         break;
     }
   }
@@ -51,17 +58,20 @@ window. onload = function() {
     if(keys.right && left + 4 < width){
       left++
     }
+    if(keys.rotate){
+      angle++
+    }
     keys = {}
 
-    cells[top0 * width + left0 + 0].style.backgroundColor=''
-    cells[top0 * width + left0 + 1].style.backgroundColor=''
-    cells[top0 * width + left0 + 2].style.backgroundColor=''
-    cells[top0 * width + left0 + 3].style.backgroundColor=''
-
-    cells[top * width + left + 0].style.backgroundColor='red'
-    cells[top * width + left + 1].style.backgroundColor='red'
-    cells[top * width + left + 2].style.backgroundColor='red'
-    cells[top * width + left + 3].style.backgroundColor='red'
+    for(var i = -1; i < parts0.length; i++){
+      var offset = parts0[i] || 0
+      cells[top0 * width + left0 + offset].style.backgroundColor = ''
+    }
+    parts0 = angles[angle % angles.length]
+    for(var i=-1; i < parts0.length; i++){
+      var offset = parts0[i] || 0
+      cells[top * width + left + offset].style.backgroundColor = 'red'
+    }
     top0 = top
     if(tick % speed == 0){
       top++
